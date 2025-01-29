@@ -7,7 +7,6 @@ WORKDIR /home/node/app
 # Copy dependency information and install all dependencies
 COPY --chown=node:node package.json package-lock.json ./
 
-RUN npm set registry http://npm.registry.moah/
 RUN npm ci
 
 # Copy source code
@@ -32,8 +31,7 @@ WORKDIR /home/node/app
 # Copy dependency information and install production-only dependencies
 COPY --chown=node:node package.json package-lock.json ./
 
-RUN npm set registry http://npm.registry.moah/ \
-    npm ci
+RUN npm ci
 
 # Copy results from previous stage
 COPY --chown=node:node --from=build /home/node/app/dist ./dist
